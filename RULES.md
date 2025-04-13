@@ -1,4 +1,3 @@
-
 # RULES.md
 
 This file contains guidelines and best practices for creating a WooCommerce-compatible WordPress plugin. Please ensure all plugin code follows these rules.
@@ -77,30 +76,46 @@ This file contains guidelines and best practices for creating a WooCommerce-comp
 ```
 my-plugin/
 │
-├── admin/
-│   ├── class-admin.php
-│   ├── includes/
-│   ├── templates/
-│   └── assets/
-│       ├── css/
-│       ├── js/
-│       └── img/
-│
-├── frontend/
-│   ├── class-frontend.php
-│   ├── includes/
-│   ├── templates/
-│   └── assets/
-│       ├── css/
-│       ├── js/
-│       └── img/
-│
 ├── main-plugin.php
-├── gruntfile.js
-├── package.json
+├── bootstrap.php
+├── composer.json
 ├── readme.txt
-└── languages/
+├── languages/
+│
+├── /app
+│   ├── /DeliveryEstimate
+│   │   ├── Api.php
+│   │   ├── Renderer.php
+│   │   ├── ServiceProvider.php
+│   │   └── /templates/
+│   │       └── delivery-message.php
+│   ├── /Settings
+│   │   ├── SettingsPage.php
+│   │   ├── Fields.php
+│   │   ├── ServiceProvider.php
+│   │   └── /templates/
+│   │       └── settings-page.php
+│   └── /Shared
+│       └── View.php
+│
+├── /public
+│   ├── /admin
+│   │   ├── admin.min.js
+│   │   └── admin.min.css
+│   └── /frontend
+│       ├── delivery-estimate.min.js
+│       └── delivery-estimate.min.css
+├── Gruntfile.js
+├── package.json
+├── /src
+│   ├── /js
+│   │   ├── frontend.js
+│   │   └── admin.js
+│   └── /css
+│       ├── frontend.css
+│       └── admin.css
 ```
+
 
 ---
 
@@ -117,12 +132,57 @@ my-plugin/
 3. **Enqueue Scripts and Styles**  
    - Admin assets in `admin/assets`, frontend in `frontend/assets`.
    - Minified `.min.css` and `.min.js` should be built with Grunt.
+   - Conditionally load non-minified or minified versions based on debug mode:
+     ```php
+     $min = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+     wp_enqueue_script( 'my-plugin-script', plugin_dir_url( __FILE__ ) . "js/script{$min}.js", array( 'jquery' ), '1.0.0', true );
+     ```
 
 4. **Templates**  
    - Use separate `templates/` directories for admin and frontend.
    - Load with `include` or custom template loader class.
 
 5. **JavaScript Standards (jQuery Required)**  
+   - Use jQuery only.
+   - One `admin.js` and one `frontend.js` file are preferred.
+   - Inside each file, structure code using namespaced objects for each feature.
+
+   Example:
+   ```js
+   var MyPlugin = {
+       Estimate: {
+           init: function () {
+               this.bindEvents();
+           },
+           bindEvents: function () {
+               jQuery('.delivery-box').on('click', this.doSomething);
+           },
+           doSomething: function () {
+               console.log("Estimate clicked");
+           }
+       },
+
+       Settings: {
+           init: function () {
+               console.log("Settings init");
+           }
+       },
+
+       init: function () {
+           if (jQuery('body').hasClass('single-product')) {
+               this.Estimate.init();
+           }
+
+           if (jQuery('body').hasClass('admin-page')) {
+               this.Settings.init();
+           }
+       }
+   };
+
+   jQuery(document).ready(function () {
+       MyPlugin.init();
+   });
+   ```  
    - Use jQuery only.
    - All JS should be wrapped in a main plugin class (e.g., `MyPluginJS`) with functions inside.
    - Initialization should happen inside `jQuery(document).ready()`.
@@ -153,9 +213,15 @@ my-plugin/
 
 7. **Grunt Usage**  
    - Automate:
-     - CSS/JS minification
-     - POT file generation
+     - CSS/JS minification and uglification
+     - POT file generation for translations
      - Optional: linting or live reload
+   - Include Gruntfile.js and package.json in the root directory
+   - Configure grunt tasks for:
+     - Uglifying JS files into .min.js versions
+     - Minifying CSS files into .min.css versions
+     - Generating POT files for translations with grunt-wp-i18n
+     - Setting up watch tasks for development
 
 ---
 
@@ -164,7 +230,7 @@ my-plugin/
 1. **Comply with WooCommerce Code Reviews**  
    - Clean, modular, secure, and standards-compliant code.
 
-2. **Don’t Use “WooCommerce” in Plugin Name Without Permission**
+2. **Don't Use "WooCommerce" in Plugin Name Without Permission**
 
 3. **Respect Privacy Laws**  
    - If collecting data or communicating externally, explain clearly and comply with GDPR/CCPA.
