@@ -5,20 +5,16 @@
  * @package EDD_Plugin
  */
 
-namespace EDD_Plugin\Frontend\Shortcodes;
-
-use EDD_Plugin\Traits\Singleton;
+namespace EDD_Plugin\Frontend;
 
 /**
  * Class EDD_Example_Shortcode
  */
-class EDD_Example_Shortcode {
-	use Singleton;
-
+class Shortcodes {
 	/**
 	 * Initialize the class and set its properties.
 	 */
-	public function init() {
+	public function __construct() {
 		add_shortcode( 'edd_test', array( $this, 'render_shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
@@ -69,4 +65,4 @@ class EDD_Example_Shortcode {
 		<?php
 		return ob_get_clean();
 	}
-} 
+}

@@ -7,11 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'EDD_Plugin\\Admin\\Settings\\EDD_Settings' => $baseDir . '/includes/admin/settings/class-edd-settings.php',
-    'EDD_Plugin\\EDD' => $baseDir . '/includes/class-edd.php',
+    'EDD_Plugin\\Admin\\Settings' => $baseDir . '/includes/admin/settings/class-edd-settings.php',
+    'EDD_Plugin\\EDD' => $baseDir . '/includes/class-edd-plugin.php',
     'EDD_Plugin\\EDD_Activator' => $baseDir . '/includes/class-edd-activator.php',
     'EDD_Plugin\\EDD_Deactivator' => $baseDir . '/includes/class-edd-deactivator.php',
-    'EDD_Plugin\\EDD_Loader' => $baseDir . '/includes/class-edd-loader.php',
-    'EDD_Plugin\\Frontend\\Shortcodes\\EDD_Example_Shortcode' => $baseDir . '/includes/frontend/shortcodes/class-edd-example-shortcode.php',
-    'EDD_Plugin\\Traits\\Singleton' => $baseDir . '/includes/traits/Singleton.php',
+    'EDD_Plugin\\Frontend\\Shortcodes' => $baseDir . '/includes/frontend/shortcodes/class-edd-example-shortcode.php',
 );

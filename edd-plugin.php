@@ -16,7 +16,7 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	die;
+    die;
 }
 
 /**
@@ -38,23 +38,23 @@ define( 'EDD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * Autoload dependencies.
  */
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+    require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 } else {
-	die( 'Please run composer install to set up the autoloader.' );
+    die( 'Please run composer install to set up the autoloader.' );
 }
 
 /**
  * The code that runs during plugin activation.
  */
 function activate_edd_plugin() {
-	EDD_Plugin\EDD_Activator::activate();
+    \EDD_Plugin\EDD_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  */
 function deactivate_edd_plugin() {
-	EDD_Plugin\EDD_Deactivator::deactivate();
+    \EDD_Plugin\EDD_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_edd_plugin' );
@@ -63,10 +63,9 @@ register_deactivation_hook( __FILE__, 'deactivate_edd_plugin' );
 /**
  * Begins execution of the plugin.
  */
-function run_edd_plugin() {
-	$plugin = EDD_Plugin\EDD::get_instance();
-	$plugin->run();
+function edd_plugin_run() {
+    return \EDD_Plugin\EDD::instance();
 }
 
-// Let's get started!
-run_edd_plugin(); 
+// Initialize the plugin
+edd_plugin_run();

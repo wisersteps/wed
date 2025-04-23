@@ -5,20 +5,16 @@
  * @package EDD_Plugin
  */
 
-namespace EDD_Plugin\Admin\Settings;
-
-use EDD_Plugin\Traits\Singleton;
+namespace EDD_Plugin\Admin;
 
 /**
  * Class EDD_Settings
  */
-class EDD_Settings {
-	use Singleton;
-
+class Settings {
 	/**
 	 * Initialize the class and set its properties.
 	 */
-	public function init() {
+	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
@@ -120,4 +116,4 @@ class EDD_Settings {
 	public function display_plugin_admin_page() {
 		include_once plugin_dir_path( dirname( dirname( __FILE__ ) ) ) . 'admin/settings/view-settings-form.php';
 	}
-} 
+}
