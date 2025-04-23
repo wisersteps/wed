@@ -1,0 +1,19 @@
+{
+  "name": "edd-plugin",
+  "version": "1.0.0",
+  "description": "A professional WordPress plugin boilerplate for EDD",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "build": "grunt",
+    "watch": "grunt watch"
+  },
+  "author": "Your Name",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "grunt": "^1.5.3",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-sass": "^2.0.0",
+    "grunt-contrib-uglify": "^5.2.1",
+    "grunt-contrib-watch": "^1.1.0"
+  }
+} 

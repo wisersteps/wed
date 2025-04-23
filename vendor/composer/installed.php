@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'yourname/edd-plugin',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '0fe3e8264adf9020a182a249ba727161ec7de349',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'squizlabs/php_codesniffer' => array(
+            'pretty_version' => '3.12.2',
+            'version' => '3.12.2.0',
+            'reference' => '6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'wp-coding-standards/wpcs' => array(
+            'pretty_version' => '2.3.0',
+            'version' => '2.3.0.0',
+            'reference' => '7da1894633f168fe244afc6de00d141f27517b62',
+            'type' => 'phpcodesniffer-standard',
+            'install_path' => __DIR__ . '/../wp-coding-standards/wpcs',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'yourname/edd-plugin' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '0fe3e8264adf9020a182a249ba727161ec7de349',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);
